@@ -1,0 +1,35 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<nav>
+    <div class="brand">
+        <a href="#">Brand</a>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search" id="search-input">
+        <select id="search-mode">
+            <option value="name">Search by Name</option>
+            <option value="type">Search by Type</option>
+        </select>
+        <button onclick="submitSearch()">Search</button>
+
+    </div>
+    <div class="links">
+        <a href="">Home</a>
+        <a href="register">Register</a>
+        <a href="login">Login</a>
+    </div>
+</nav>
+<script>
+
+    function submitSearch() {
+        const searchInput = document.getElementById("search-input").value;
+        if (!searchInput) {
+            return;
+        }
+        const searchMode = document.getElementById("search-mode").value;
+        window.location.href = 'search?q=' + searchInput + '&mode=' + searchMode;
+    }
+
+</script>
+
