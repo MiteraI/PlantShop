@@ -4,6 +4,7 @@
     Author     : Huynh Anh Kiet
 --%>
 
+<%@page import="controller.Constants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -41,13 +42,13 @@
         </style>
     </head>
     <body>
-        <form action="register" name="registerForm" method="post" onsubmit="return validateForm()">
+        <form action="MainController" name="registerForm" method="post" onsubmit="return validateForm()">
             <h2>Register</h2>
             <input type="text" name="fullName" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="tel" name="phoneNumber" placeholder="Phone Number" required oninput="this.value = formatPhoneNumber(this.value)">
-            <input type="submit" value="Submit">
+            <input type="submit" value="<%=Constants.REGISTER%>" name="action">
             <%    
                 if(request.getAttribute("registerStatus")!=null) {
                      boolean registerStatus = (boolean) request.getAttribute("registerStatus");

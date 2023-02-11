@@ -28,12 +28,13 @@ public class AccountDAOImpl implements AccountDAO {
         pstm.setString(2, password);
         ResultSet rs = pstm.executeQuery();
         if (rs.next()) {
+            int accID = rs.getInt("accID");
             String name = rs.getString("fullname");
             String phone = rs.getString("phone");
             int status = rs.getInt("status");
             int role = rs.getInt("role");
             conn.close();
-            return new Account(name, email, password, phone, status, role);
+            return new Account(accID, name, email, password, phone, status, role);
         };
         conn.close();
         return null;

@@ -4,6 +4,7 @@
     Author     : Huynh Anh Kiet
 --%>
 
+<%@page import="controller.Constants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -54,11 +55,11 @@
     </head>
     <body>
         <div class="form-container">
-            <form class="form" action="login" method="post" onsubmit="return validateForm()">
+            <form class="form" action="MainController" method="post" onsubmit="return validateForm()">
                 <h2>Login</h2>
                 <input type="text" id="email" name="email" placeholder="Email">
                 <input type="password" id="password" name="password" placeholder="Password">
-                <input type="submit" value="Submit">
+                <input type="submit" value="<%=Constants.LOGIN%>" name="action">
                 <p class="error" id="error"></p>
                 <%
                     if (request.getAttribute("loginStatus") != null) {
@@ -87,6 +88,13 @@
                 }
                 return true;
             }
+            <%
+                if (request.getAttribute("loginedUser") != null) {
+            %>
+                alert("You have to login first!")
+            <%
+                }
+            %>
         </script>
     </body>
 </html>

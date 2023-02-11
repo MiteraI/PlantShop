@@ -24,6 +24,8 @@
                                 + "<img src='resources/img/" + plant.getImgPath() + "' alt='" + plant.getDescription() + "' width='100' height='100'>"
                                 + "<h3>" + plant.getName() + "</h3>"
                                 + "<h2>" + plant.getPrice() + "</h2>"
+                                + "<a href='MainController?action=" + Constants.VIEW + "&id=" + plant.getId() + "'><button>View plant</button></a>"
+//                                + "<a href='MainController?action=" + Constants.ADDTOCART + "&id=" + plant.getId() + "'><button id='buyButton'>Buy plant</button></a>"
                                 + "</div>");
                     }
                 } else {

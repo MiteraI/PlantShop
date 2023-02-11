@@ -1,4 +1,5 @@
 <%-- any content can be specified here e.g.: --%>
+<%@page import="controller.Constants"%>
 <%@ page pageEncoding="UTF-8" %>
 
 <nav>
@@ -6,30 +7,53 @@
         <a href="#">Brand</a>
     </div>
     <div class="search-bar">
-        <input type="text" placeholder="Search" id="search-input">
-        <select id="search-mode">
-            <option value="name">Search by Name</option>
-            <option value="type">Search by Type</option>
-        </select>
-        <button onclick="submitSearch()">Search</button>
+        <form id="searchForm" action="<%=Constants.SEARCH%>" method="post">
+            <input name="q" type="text" placeholder="Search" value="<%
+                if (request.getAttribute("q") != null) {
+                    out.print((String) request.getAttribute("q"));
+                } else {
+                    out.print("");
+                }
+                   %>" id="search-input">
 
+            <select name="mode" form="searchForm">
+                <%
+                    String mode = "";
+                    if (request.getAttribute("mode") != null) {
+                        mode = (String) request.getAttribute("mode");
+                    }
+                %>
+                <option <%
+                    out.print(mode.equalsIgnoreCase("name") ? "selected" : "a");%> value="name">Search by Name</option>
+                <option <%out.print(mode.equalsIgnoreCase("type") ? "selected" : "a");%> value="type">Search by Type</option>
+            </select>
+            <input type="submit" value="Search">
+        </form>
     </div>
     <div class="links">
-        <a href="">Home</a>
-        <a href="register">Register</a>
-        <a href="login">Login</a>
+        <a href="Home">Home</a>
+        <a href="MainController?action=<%=Constants.REGISTER%>">Register</a>
+        <a href="MainController?action=<%=Constants.LOGIN%>">Login</a>
+        <a href="MainController?action=<%=Constants.LOGOUT%>">Logout</a>
+        <%
+            if (session.getAttribute("loginedUser") != null) {
+        %>
+        <a href="ViewCart"><img src="resources/img/shopping-cart.png" alt="alt" width="30" height="30"/></a>
+        <a href="ViewOrder"><img src="resources/img/settings.png" alt="alt" width="30" height="30"/></a>
+
+        <%}%>
     </div>
 </nav>
-<script>
 
-    function submitSearch() {
-        const searchInput = document.getElementById("search-input").value;
-        if (!searchInput) {
-            return;
-        }
-        const searchMode = document.getElementById("search-mode").value;
-        window.location.href = 'search?q=' + searchInput + '&mode=' + searchMode;
-    }
+<script>
+//    function submitSearch() {
+//        const searchInput = document.getElementById("search-input").value;
+//        if (!searchInput) {
+//            return;
+//        }
+//        const searchMode = document.getElementById("search-mode").value;
+//        window.location.href = 'search?q=' + searchInput + '&mode=' + searchMode;
+//    }
 
 </script>
 

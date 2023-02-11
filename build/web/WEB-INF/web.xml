@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>Home</servlet-name>
+        <servlet-name>HomePage</servlet-name>
         <servlet-class>servlets.HomePage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BackHomeLink</servlet-name>
+        <servlet-class>servlets.BackHomeLink</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
@@ -16,21 +20,81 @@
         <servlet-name>Search</servlet-name>
         <servlet-class>servlets.Search</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewPlant</servlet-name>
+        <servlet-class>servlets.ViewPlant</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MainController</servlet-name>
+        <servlet-class>controller.MainController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Purchase</servlet-name>
+        <servlet-class>servlets.Purchase</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>servlets.AddToCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewCart</servlet-name>
+        <servlet-class>servlets.ViewCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>servlets.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewOrder</servlet-name>
+        <servlet-class>servlets.ViewOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>Home</servlet-name>
+        <servlet-name>HomePage</servlet-name>
         <url-pattern/>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>BackHomeLink</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
-        <url-pattern>/register</url-pattern>
+        <url-pattern>/Register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
-        <url-pattern>/search</url-pattern>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewPlant</servlet-name>
+        <url-pattern>/ViewPlant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MainController</servlet-name>
+        <url-pattern>/MainController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Purchase</servlet-name>
+        <url-pattern>/Purchase</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewCart</servlet-name>
+        <url-pattern>/ViewCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewOrder</servlet-name>
+        <url-pattern>/ViewOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

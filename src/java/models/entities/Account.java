@@ -9,6 +9,7 @@ package models.entities;
  * @author Huynh Anh Kiet
  */
 public class Account {
+    private int accID;
     private String name;
     private String email;
     private String password;
@@ -17,7 +18,8 @@ public class Account {
     private int role;
 
     public Account() {}
-    public Account(String name, String email, String password, String phone, int status, int role) {
+    public Account(int accID, String name, String email, String password, String phone, int status, int role) {
+        this.accID = accID;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -107,6 +109,20 @@ public class Account {
      */
     public void setRole(int role) {
         this.role = role;
+    }
+
+    /**
+     * @return the accID
+     */
+    public int getAccID() {
+        return accID;
+    }
+
+    /**
+     * @param accID the accID to set
+     */
+    public void setAccID(int accID) {
+        this.accID = accID;
     }
     
 }

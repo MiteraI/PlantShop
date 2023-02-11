@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.DAO.PlantDAOImpl;
 import models.entities.Plant;
 
@@ -34,14 +35,17 @@ public class Search extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
             String searchInput = request.getParameter("q");
             String searchMode = request.getParameter("mode");
             PlantDAOImpl plant = new PlantDAOImpl();
-            ArrayList<Plant> plantList = plant.search(searchInput, searchMode);
+            ArrayList<Plant> plantList = plant.search(searchInput.replaceAll("\\s",""), searchMode);
             request.setAttribute("list", plantList);
+            request.setAttribute("q", searchInput);
+            request.setAttribute("mode", searchMode);
             request.getRequestDispatcher("WEB-INF/views/SearchPage.jsp").forward(request, response);
             request.removeAttribute("list");
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println(ex);
         }
     }

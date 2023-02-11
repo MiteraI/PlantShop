@@ -9,6 +9,7 @@ package models.entities;
  * @author Huynh Anh Kiet
  */
 public class Plant {
+    private int id;
     private String name;
     private double price;
     private String imgPath;
@@ -16,7 +17,8 @@ public class Plant {
     private int status;
     public Plant() {
     }
-    public Plant(String name, double price, String imgPath, String description, int status) {
+    public Plant(int id, String name, double price, String imgPath, String description, int status) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.imgPath = imgPath;
@@ -91,5 +93,19 @@ public class Plant {
      */
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

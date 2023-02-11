@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.DAO.AccountDAOImpl;
 import models.entities.Account;
 
@@ -54,8 +55,9 @@ public class Login extends HttpServlet {
             AccountDAOImpl account = new AccountDAOImpl();
             Account loginedUser = account.read(email, password);
             if (loginedUser != null) {
-                request.setAttribute("user", loginedUser);
-                request.getRequestDispatcher("WEB-INF/views/AccountTest.jsp").forward(request, response);
+                HttpSession session = request.getSession();
+                session.setAttribute("loginedUser", loginedUser);
+                request.getRequestDispatcher("").forward(request, response);
             } else {
                 request.setAttribute("loginStatus", false);
                 request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);

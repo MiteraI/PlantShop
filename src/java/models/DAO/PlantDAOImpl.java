@@ -20,8 +20,45 @@ import models.entities.Plant;
 public class PlantDAOImpl implements PlantDAO {
 
     @Override
-    public Plant read(String string, String string1) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Plant read(String name, String random) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM dbo.Plants WHERE PName = ?";
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, name);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt("PID");
+            String plantName = rs.getString("PName");
+            double price = rs.getDouble("price");
+            String imgPath = rs.getString("imgPath");
+            String description = rs.getString("description");
+            int status = rs.getInt("status");
+            Plant plant = new Plant(id, plantName, price, imgPath, description, status);
+            conn.close();
+            return plant;
+        }
+        conn.close();
+        return null;
+    }
+    public Plant read(String id) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM dbo.Plants WHERE PID = ?";
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, id);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            int pid = rs.getInt("PID");
+            String plantName = rs.getString("PName");
+            double price = rs.getDouble("price");
+            String imgPath = rs.getString("imgPath");
+            String description = rs.getString("description");
+            int status = rs.getInt("status");
+            Plant plant = new Plant(pid, plantName, price, imgPath, description, status);
+            conn.close();
+            return plant;
+        }
+        conn.close();
+        return null;
     }
 
     @Override
@@ -47,12 +84,13 @@ public class PlantDAOImpl implements PlantDAO {
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
         while (rs.next()) {
+            int id = rs.getInt("PID");
             String plantName = rs.getString("PName");
             double price = rs.getDouble("price");
             String imgPath = rs.getString("imgPath");
             String description = rs.getString("description");
             int status = rs.getInt("status");
-            plantList.add(new Plant(plantName, price, imgPath, description, status));
+            plantList.add(new Plant(id, plantName, price, imgPath, description, status));
         }
         conn.close();
         if (!plantList.isEmpty()) {
@@ -65,7 +103,7 @@ public class PlantDAOImpl implements PlantDAO {
         ArrayList<Plant> plantList = new ArrayList<>();
         String searchMode = "name".equals(mode) ? "P.PName" : "C.CateName";
         String sql = "DECLARE @Name nvarchar(100) = ?\n"
-                + "SELECT PName, price, imgPath, description, status\n"
+                + "SELECT PID, PName, price, imgPath, description, status\n"
                 + "FROM Plants P\n"
                 + "JOIN Categories C ON P.CateID = C.CateID\n"
                 + "WHERE (@Name IS NULL OR " + searchMode + " LIKE '%' + @Name + '%')";
@@ -74,12 +112,13 @@ public class PlantDAOImpl implements PlantDAO {
         pstm.setString(1, query);
         ResultSet rs = pstm.executeQuery();
         while (rs.next()) {
+            int id = rs.getInt("PID");
             String name = rs.getString("PName");
             double price = rs.getDouble("price");
             String imgPath = rs.getString("imgPath");
             String description = rs.getString("description");
             int status = rs.getInt("status");
-            plantList.add(new Plant(name, price, imgPath, description, status));
+            plantList.add(new Plant(id, name, price, imgPath, description, status));
         }
         conn.close();
         if (!plantList.isEmpty()) {
