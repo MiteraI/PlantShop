@@ -57,6 +57,7 @@
         </style>
     </head>
     <body>
+        <%@include file="jspf/header.jspf" %>
         <h1>Hello <%=account.getName()%></h1>
         <h1>Your role is <%=account.getRole() == AccountConstants.USER ? "User" : "Admin"%></h1>
         <h1>Your phone number is <%=account.getPhone()%></h1>

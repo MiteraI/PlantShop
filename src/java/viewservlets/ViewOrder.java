@@ -44,8 +44,10 @@ public class ViewOrder extends HttpServlet {
             ArrayList<OrderDetail> completedOrderList = new ArrayList();
             ArrayList<OrderDetail> canceledOrderList = new ArrayList();
             if (request.getParameter("dateFilter") != null) {
+                if(!request.getParameter("dateFilter").isEmpty() || !request.getParameter("dateFilter").isBlank()) {
                 String dateString = request.getParameter("dateFilter");
                 date = dateFormat.parse(dateString);
+                }
             }
             HttpSession session = request.getSession();
             Account loginedUser = (Account) session.getAttribute("loginedUser");

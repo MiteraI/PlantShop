@@ -35,15 +35,15 @@
                     <a href='MainController?action=<%=ControllerConstants.VIEW%>&id=<%=plant.getId()%>'><button>View plant</button></a>                
                 </div>
             </div>
-                <%}
-                    } else {
-                        out.println("No plant was found");
-                    }
-                %>          
-            </div>      
-            <%@include file="jspf/footer.jspf"%>
-            <script>
+            <%}
+                } else {
+                    out.println("No plant was found");
+                }
+            %>          
+        </div>      
+        <%@include file="jspf/footer.jspf"%>
+        <script>
 
-            </script>
+        </script>
     </body>
 </html>

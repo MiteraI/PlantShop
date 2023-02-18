@@ -47,14 +47,14 @@
                            %>" id="search-input">
 
                     <select class="border-2 border-black rounded-lg px-2 py-1" name="mode" form="searchForm">
-                        <%
-                            String mode = "";
-                            if (request.getAttribute("mode") != null) {
-                                mode = (String) request.getAttribute("mode");
-                            }
-                        %>
-                        <option <%
-                                out.print(mode.equalsIgnoreCase("name") ? "selected" : "a");%> value="name">Search by Name</option>
+                            <%
+                                String mode = "";
+                                if (request.getAttribute("mode") != null) {
+                                    mode = (String) request.getAttribute("mode");
+                                }
+                            %>
+                            <option <%
+                            out.print(mode.equalsIgnoreCase("name") ? "selected" : "a");%> value="name">Search by Name</option>
                         <option <%out.print(mode.equalsIgnoreCase("type") ? "selected" : "a");%> value="type">Search by Type</option>
                     </select>
                     <input class="border-2 bg-slate-200 rounded-full px-4 py-1" type="submit" value="Search">
@@ -78,8 +78,10 @@
                 <%}%>
             </div>
         </nav>
+        <br/>
+        <hr/>
+        <br/>
     </body>
-    <br />
 </html>
 
 
