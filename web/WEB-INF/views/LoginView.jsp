@@ -4,13 +4,15 @@
     Author     : Huynh Anh Kiet
 --%>
 
-<%@page import="controller.Constants"%>
+<%@page import="workconstants.ControllerConstants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Login Page</title>
+                <link href="resources/css/index.css" rel="stylesheet" type="text/css"/>
+
         <style>
             .form-container {
                 display: flex;
@@ -59,7 +61,7 @@
                 <h2>Login</h2>
                 <input type="text" id="email" name="email" placeholder="Email">
                 <input type="password" id="password" name="password" placeholder="Password">
-                <input type="submit" value="<%=Constants.LOGIN%>" name="action">
+                <input type="submit" value="<%=ControllerConstants.LOGIN%>" name="action">
                 <p class="error" id="error"></p>
                 <%
                     if (request.getAttribute("loginStatus") != null) {

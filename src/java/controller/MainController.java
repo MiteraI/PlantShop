@@ -4,6 +4,7 @@
  */
 package controller;
 
+import workconstants.ControllerConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,25 +35,29 @@ public class MainController extends HttpServlet {
             String url = "WEB-INF/views/Homepage.jsp";
             String ac = request.getParameter("action");
             switch (ac) {
-                case Constants.LOGIN:
+                case ControllerConstants.LOGIN:
                     request.getRequestDispatcher(ac).forward(request, response);
                     break;
-                case Constants.REGISTER:
+                case ControllerConstants.REGISTER:
                     request.getRequestDispatcher(ac).forward(request, response);
                     break;
-                case Constants.VIEW:
+                case ControllerConstants.VIEW:
                     request.getRequestDispatcher(ac).forward(request, response);
                     break;
-                case Constants.ADDTOCART:
+                case ControllerConstants.ADDTOCART:
                     request.getRequestDispatcher(ac).forward(request, response);
                     break;
-                case Constants.PURCHASE:
+                case ControllerConstants.PURCHASE:
                     request.getRequestDispatcher(ac).forward(request, response);
                     break;
-                case Constants.LOGOUT:
+                case ControllerConstants.LOGOUT:
                     request.getRequestDispatcher(ac).forward(request, response);
                     break;
-
+                case ControllerConstants.VIEWACCOUNT:
+                    request.getRequestDispatcher(ac).forward(request, response);
+                    break;
+                case ControllerConstants.CHANGEACCOUNT:
+                    request.getRequestDispatcher(ac).forward(request, response);
             }
         }
     }

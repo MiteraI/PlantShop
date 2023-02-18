@@ -3,19 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAO/PlantDAOImpl.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAOInterface/AccountDAO.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/Register.java</file>
             <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/jspf/header.jspf</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAO/AccountDAOImpl.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/web.xml</file>
             <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAO/OrderDetailDAOImpl.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAOInterface/PlantDAO.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/servlets/Purchase.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/resources/css/index.css</file>
             <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/CartView.jsp</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/PlantView.jsp</file>
             <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/entities/OrderDetail.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/servlets/Logout.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workservlets/ChangeAccount.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/ViewOrderDetail.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/ViewOrder.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workservlets/Purchase.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/RegisterView.jsp</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/HomePage.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/SearchPage.jsp</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/ViewAccount.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/OrderView.jsp</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workconstants/OrderConstants.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/resources/css/order.css</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/controller/MainController.java</file>
             <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAOInterface/OrderDetailDAO.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/servlets/ViewCart.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAOInterface/DAO.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/entities/Plant.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/AccountView.jsp</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workconstants/AccountConstants.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workservlets/OrderAction.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workconstants/ControllerConstants.java</file>
         </group>
     </open-files>
 </project-private>

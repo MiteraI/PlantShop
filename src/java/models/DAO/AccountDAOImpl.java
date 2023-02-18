@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import models.DAOInterface.AccountDAO;
 import models.entities.Account;
+import workconstants.AccountConstants;
 
 /**
  *
@@ -69,6 +70,40 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public boolean update() throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean update(String mode, String value, int accId) throws SQLException, ClassNotFoundException {
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        String insertMode = "";
+        switch (mode) {
+            case AccountConstants.CHANGEEMAIL:
+                insertMode = mode;
+                break;
+            case AccountConstants.CHANGENAME:
+                insertMode = mode;
+                break;
+
+            case AccountConstants.CHANGEPASSWORD:
+                insertMode = mode;
+                break;
+
+            case AccountConstants.CHANGEPHONE:
+                insertMode = mode;
+                break;
+        }
+        String sql = "UPDATE dbo.Accounts\n"
+                + "SET "+insertMode+" = ?\n"
+                + "WHERE accID = ?";
+
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, value);
+        pstm.setInt(2, accId);
+        if (pstm.executeUpdate() != 0) {
+            conn.close();
+            return true;
+        }
+        conn.close();
+        return false;
     }
 
     @Override

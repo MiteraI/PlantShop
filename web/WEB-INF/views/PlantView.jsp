@@ -1,3 +1,4 @@
+<%@page import="workconstants.ControllerConstants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -73,14 +74,12 @@
                 <div class="product-name">${plant.getName()}</div>
                 <div class="product-description">${plant.getDescription()}</div>
                 <div class="product-price">${plant.getPrice()} $</div>
-                <form action="MainController?action=<%=Constants.ADDTOCART%>&id=${plant.getId()}" method="post">
+                <form action="MainController?action=<%=ControllerConstants.ADDTOCART%>&id=${plant.getId()}" method="post">
                     <div>
                         <label>Number of items:</label>
                         <input type="number" name="quantity" min="1" value="1">
-                    </div>
-                    <div>
-                        <input class="cart-button" type="submit" value="Put to Cart">
-                    </div>
+                    </div>            
+                        <input class="cart-button border-2 bg-slate-200" type="submit" value="Put to Cart">       
                 </form>
             </div>
         </div>

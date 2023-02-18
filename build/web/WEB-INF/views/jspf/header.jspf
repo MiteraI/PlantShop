@@ -1,59 +1,90 @@
 <%-- any content can be specified here e.g.: --%>
-<%@page import="controller.Constants"%>
+<%@page import="workconstants.ControllerConstants"%>
 <%@ page pageEncoding="UTF-8" %>
+<html>
+    <head>
+        <style type="text/css">
+            .nav {
+                position: relative;
+                display: inline-block;
+            }
 
-<nav>
-    <div class="brand">
-        <a href="#">Brand</a>
-    </div>
-    <div class="search-bar">
-        <form id="searchForm" action="<%=Constants.SEARCH%>" method="post">
-            <input name="q" type="text" placeholder="Search" value="<%
-                if (request.getAttribute("q") != null) {
-                    out.print((String) request.getAttribute("q"));
-                } else {
-                    out.print("");
-                }
-                   %>" id="search-input">
+            .dropdown {
+                display: none;
+                position: absolute;
+                z-index: 1;
+                transform: translateX(-100px);
 
-            <select name="mode" form="searchForm">
-                <%
-                    String mode = "";
-                    if (request.getAttribute("mode") != null) {
-                        mode = (String) request.getAttribute("mode");
-                    }
-                %>
-                <option <%
-                    out.print(mode.equalsIgnoreCase("name") ? "selected" : "a");%> value="name">Search by Name</option>
-                <option <%out.print(mode.equalsIgnoreCase("type") ? "selected" : "a");%> value="type">Search by Type</option>
-            </select>
-            <input type="submit" value="Search">
-        </form>
-    </div>
-    <div class="links">
-        <a href="Home">Home</a>
-        <a href="MainController?action=<%=Constants.REGISTER%>">Register</a>
-        <a href="MainController?action=<%=Constants.LOGIN%>">Login</a>
-        <a href="MainController?action=<%=Constants.LOGOUT%>">Logout</a>
-        <%
-            if (session.getAttribute("loginedUser") != null) {
-        %>
-        <a href="ViewCart"><img src="resources/img/shopping-cart.png" alt="alt" width="30" height="30"/></a>
-        <a href="ViewOrder"><img src="resources/img/settings.png" alt="alt" width="30" height="30"/></a>
+            }
 
-        <%}%>
-    </div>
-</nav>
+            .nav:hover .dropdown {
+                display: block;
+            }
 
-<script>
-//    function submitSearch() {
-//        const searchInput = document.getElementById("search-input").value;
-//        if (!searchInput) {
-//            return;
-//        }
-//        const searchMode = document.getElementById("search-mode").value;
-//        window.location.href = 'search?q=' + searchInput + '&mode=' + searchMode;
-//    }
+            .dropdown a {
+                display: block;
+            }
 
-</script>
+            .dropdown a:hover {
+                background-color: #f1f1f1;
+            }
+        </style>
+        <link href="resources/css/index.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <nav class="flex items-center justify-between p-5">
+            <div class="brand">
+                <a href="Home">Getting back to homepage</a>
+            </div>
+            <div class="search-bar">
+                <form class="flex space-x-6" id="searchForm" action="<%=ControllerConstants.SEARCH%>" method="post">
+                    <input class="border-2 border-black rounded-full px-6 py-1" name="q" type="text" placeholder="Search" value="<%
+                        if (request.getAttribute("q") != null) {
+                            out.print((String) request.getAttribute("q"));
+                        } else {
+                            out.print("");
+                        }
+                           %>" id="search-input">
+
+                    <select class="border-2 border-black rounded-lg px-2 py-1" name="mode" form="searchForm">
+                        <%
+                            String mode = "";
+                            if (request.getAttribute("mode") != null) {
+                                mode = (String) request.getAttribute("mode");
+                            }
+                        %>
+                        <option <%
+                                out.print(mode.equalsIgnoreCase("name") ? "selected" : "a");%> value="name">Search by Name</option>
+                        <option <%out.print(mode.equalsIgnoreCase("type") ? "selected" : "a");%> value="type">Search by Type</option>
+                    </select>
+                    <input class="border-2 bg-slate-200 rounded-full px-4 py-1" type="submit" value="Search">
+                </form>
+            </div>
+            <div class="flex">
+                <a class="mx-2" href="Home">Home</a>
+                <%if (session.getAttribute("loginedUser") == null) {%>
+                <a class="mx-2" href="MainController?action=<%=ControllerConstants.LOGIN%>">Login</a>
+                <a class="mx-2" href="MainController?action=<%=ControllerConstants.REGISTER%>">Register</a>
+                <%} else {%>
+                <a class="mx-2" href="ViewCart"><img src="resources/img/shopping-cart.png" alt="alt" width="30" height="30"/></a>
+                <div class="nav mx-2">
+                    <a href="#"><img src="resources/img/settings.png" alt="alt" width="30" height="30"/></a>
+                    <div class="dropdown w-48">
+                        <a href="MainController?action=<%=ControllerConstants.VIEWACCOUNT%>">View Account</a>
+                        <a href="ViewOrder">View order</a>
+                        <a href="MainController?action=<%=ControllerConstants.LOGOUT%>">Logout</a>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+        </nav>
+    </body>
+    <br />
+</html>
+
+
+
+
+
+
 

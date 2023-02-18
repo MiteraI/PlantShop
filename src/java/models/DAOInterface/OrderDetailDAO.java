@@ -24,5 +24,5 @@ public interface OrderDetailDAO {
     //Others
     boolean save() throws SQLException, ClassNotFoundException;
 
-    public ArrayList<OrderDetail> readAll(String accID) throws SQLException, ClassNotFoundException;
+    public ArrayList<OrderDetail> readAll(int accID) throws SQLException, ClassNotFoundException;
 }

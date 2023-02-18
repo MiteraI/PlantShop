@@ -19,8 +19,9 @@ public class OrderDetail {
     private int quantity;
     private String orderDate;
     private String shippingDate;
+    private int status;
     // Constructor
-    public OrderDetail(int orderDetailID, int orderID, int plantID, String plantName, double price, String imgPath, int quantity, String orderDate, String shippingDate) {
+    public OrderDetail(int orderDetailID, int orderID, int plantID, String plantName, double price, String imgPath, int quantity, String orderDate, String shippingDate, int status) {
         this.orderDetailID = orderDetailID;
         this.orderID = orderID;
         this.plantID = plantID;
@@ -30,6 +31,7 @@ public class OrderDetail {
         this.quantity = quantity;
         this.orderDate = orderDate;
         this.shippingDate = shippingDate;
+        this.status = status;
     }
 
     /**
@@ -156,5 +158,19 @@ public class OrderDetail {
      */
     public void setShippingDate(String shippingDate) {
         this.shippingDate = shippingDate;
+    }
+
+    /**
+     * @return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

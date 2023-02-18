@@ -2,27 +2,27 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>HomePage</servlet-name>
-        <servlet-class>servlets.HomePage</servlet-class>
+        <servlet-class>viewservlets.HomePage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BackHomeLink</servlet-name>
-        <servlet-class>servlets.BackHomeLink</servlet-class>
+        <servlet-class>viewservlets.BackHomeLink</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>servlets.Login</servlet-class>
+        <servlet-class>viewservlets.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Register</servlet-name>
-        <servlet-class>servlets.Register</servlet-class>
+        <servlet-class>viewservlets.Register</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Search</servlet-name>
-        <servlet-class>servlets.Search</servlet-class>
+        <servlet-class>viewservlets.Search</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewPlant</servlet-name>
-        <servlet-class>servlets.ViewPlant</servlet-class>
+        <servlet-class>viewservlets.ViewPlant</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MainController</servlet-name>
@@ -30,23 +30,39 @@
     </servlet>
     <servlet>
         <servlet-name>Purchase</servlet-name>
-        <servlet-class>servlets.Purchase</servlet-class>
+        <servlet-class>workservlets.Purchase</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddToCart</servlet-name>
-        <servlet-class>servlets.AddToCart</servlet-class>
+        <servlet-class>workservlets.AddToCart</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewCart</servlet-name>
-        <servlet-class>servlets.ViewCart</servlet-class>
+        <servlet-class>viewservlets.ViewCart</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>servlets.Logout</servlet-class>
+        <servlet-class>workservlets.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewOrder</servlet-name>
-        <servlet-class>servlets.ViewOrder</servlet-class>
+        <servlet-class>viewservlets.ViewOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderAction</servlet-name>
+        <servlet-class>workservlets.OrderAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewOrderDetail</servlet-name>
+        <servlet-class>viewservlets.ViewOrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAccount</servlet-name>
+        <servlet-class>viewservlets.ViewAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeAccount</servlet-name>
+        <servlet-class>workservlets.ChangeAccount</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -95,6 +111,22 @@
     <servlet-mapping>
         <servlet-name>ViewOrder</servlet-name>
         <url-pattern>/ViewOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderAction</servlet-name>
+        <url-pattern>/OrderAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewOrderDetail</servlet-name>
+        <url-pattern>/ViewOrderDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAccount</servlet-name>
+        <url-pattern>/ViewAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeAccount</servlet-name>
+        <url-pattern>/ChangeAccount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

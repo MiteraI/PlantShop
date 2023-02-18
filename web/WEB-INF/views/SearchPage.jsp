@@ -20,21 +20,35 @@
                 }
             %>
         </title>
+        <link rel="stylesheet" href="./resources/css/index.css" />
+
     </head>
     <body>
         <%@include file="jspf/header.jspf"%>
-        <div style="display:flex">
+        <div class="flex flex-wrap">
             <%                ArrayList<Plant> list = (ArrayList<Plant>) request.getAttribute("list");
                 if (list.size() > 0) {
-                    for (Plant plant : list) {
-                        out.println("<div>"
-                                + "<img src='resources/img/" + plant.getImgPath() + "' alt='" + plant.getDescription() + "' width='100' height='100'>"
-                                + "<h3>" + plant.getName() + "</h3>"
-                                + "<h2>" + plant.getPrice() + "</h2>"
-                                + "<a href='MainController?action=" + Constants.VIEW + "&id=" + plant.getId() + "'><button>View plant</button></a>"
-//                                + "<a href='MainController?action=" + Constants.ADDTOCART + "&id=" + plant.getId() + "'><button id='buyButton'>Buy plant</button></a>"
-                        + "</div>");
-                    }
+                    for (Plant plant : list) {%>
+            <!--                        out.println("<div>"
+                                            + "<img src='resources/img/" + plant.getImgPath() + "' alt='" + plant.getDescription() + "' width='100' height='100'>"
+                                            + "<h3>" + plant.getName() + "</h3>"
+                                            + "<h2>" + plant.getPrice() + "</h2>"
+                                            + "<a href='MainController?action=" + Constants.VIEW + "&id=" + plant.getId() + "'><button>View plant</button></a>"
+                                            //                                + "<a href='MainController?action=" + Constants.ADDTOCART + "&id=" + plant.getId() + "'><button id='buyButton'>Buy plant</button></a>"
+                                            + "</div>");-->
+            <div class="flex-col justify-center">
+                <img
+                    class="w-48 h-48"
+                    src="./resources/img/<%=plant.getImgPath()%>"
+                    alt="<%=plant.getDescription()%>"
+                    />
+                <h3 class="text-center"><%=plant.getName()%></h3>
+                <h2 class="text-center"><%=plant.getPrice()%></h2>
+                <div class="text-center">
+                    <a><button>View plant</button></a>
+                </div>
+            </div>
+            <%}
                 } else {
                     out.println("No plant was found");
                 }
