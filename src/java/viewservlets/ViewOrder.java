@@ -55,9 +55,9 @@ public class ViewOrder extends HttpServlet {
                 OrderDetailDAOImpl getOrderDetail = new OrderDetailDAOImpl();
                 ArrayList<OrderDetail> unfilteredOrderList = getOrderDetail.readAll(loginedUser.getAccID());
                 for (OrderDetail order : unfilteredOrderList) {
-                    Date orderDate = dateFormat.parse(order.getOrderDate());
+                    Date orderDate = dateFormat.parse(order.getuOrder().getOrderDate());
                     if (!orderDate.before(date)) { //After date
-                        switch (order.getStatus()) {
+                        switch (order.getuOrder().getStatus()) {
                             case 1:
                                 pendingOrderList.add(order);
                                 break;

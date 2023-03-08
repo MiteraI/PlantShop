@@ -9,6 +9,7 @@ package models.entities;
  * @author Huynh Anh Kiet
  */
 public class Account {
+
     private int accID;
     private String name;
     private String email;
@@ -17,7 +18,9 @@ public class Account {
     private int status;
     private int role;
 
-    public Account() {}
+    public Account() {
+    }
+
     public Account(int accID, String name, String email, String password, String phone, int status, int role) {
         this.accID = accID;
         this.name = name;
@@ -27,6 +30,7 @@ public class Account {
         this.status = status;
         this.role = role;
     }
+
     /**
      * @return the name
      */
@@ -97,6 +101,16 @@ public class Account {
         this.status = status;
     }
 
+    public String getStatusInString() {
+        switch (this.status) {
+            case 0:
+                return "Blocked";
+            case 1:
+                return "Active";
+        }
+        return "";
+    }
+
     /**
      * @return the role
      */
@@ -124,5 +138,5 @@ public class Account {
     public void setAccID(int accID) {
         this.accID = accID;
     }
-    
+
 }

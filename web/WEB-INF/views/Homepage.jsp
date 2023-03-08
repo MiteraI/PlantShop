@@ -17,7 +17,7 @@
     </head>
     <body>
         <%@include file="jspf/header.jspf"%>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap justify-center">
             <%
                 ArrayList<Plant> list = (ArrayList<Plant>) request.getAttribute("list");
                 if (list.size() > 0) {
@@ -32,7 +32,7 @@
                 <h3 class="text-center"><%=plant.getName()%></h3>
                 <h2 class="text-center"><%=plant.getPrice()%></h2>
                 <div class="text-center">
-                    <a href='MainController?action=<%=ControllerConstants.VIEW%>&id=<%=plant.getId()%>'><button>View plant</button></a>                
+                    <a href='MainController?action=<%=ControllerConstants.VIEW%>&id=<%=plant.getId()%>'><button class="border-2 bg-slate-200 rounded-lg px-4 py-1">View plant</button></a>                
                 </div>
             </div>
             <%}

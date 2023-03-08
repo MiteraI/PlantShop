@@ -10,6 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.DAO.OrderDetailDAOImpl;
+import models.entities.Account;
+import models.entities.OrderDetail;
 
 /**
  *
@@ -31,7 +35,18 @@ public class ViewOrderDetail extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.print("Not yet implement");
+            HttpSession session = request.getSession();
+            Account loginedUser = (Account) session.getAttribute("loginedUser");
+            OrderDetailDAOImpl getOrderDetail = new OrderDetailDAOImpl();
+            String orderID = "-1";
+            if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
+                orderID = request.getParameter("id");
+            }
+            OrderDetail order = getOrderDetail.read(loginedUser.getAccID(),orderID);
+            request.setAttribute("details", order);
+            request.getRequestDispatcher("WEB-INF/views/OrderDetailView.jsp").forward(request, response);
+        } catch(Exception ex) {
+            System.out.println(ex);
         }
     }
 

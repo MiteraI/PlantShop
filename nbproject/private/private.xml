@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workservlets/ChangeAccount.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/jspf/header.jspf</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/Homepage.jsp</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/AccountView.jsp</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/ViewOrderDetail.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workservlets/OrderAction.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/ViewOrder.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/CartView.jsp</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAO/PlantDAOImpl.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/admin/view/AdminViewPlant.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/admin/AdminViewPlant.jsp</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/ViewAccount.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/entities/Plant.java</file>
         </group>
     </open-files>
 </project-private>

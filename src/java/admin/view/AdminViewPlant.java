@@ -1,0 +1,106 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package admin.view;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.DAO.CategoryDAOImpl;
+import models.DAO.PlantDAOImpl;
+import models.entities.Account;
+import models.entities.Category;
+import models.entities.Plant;
+
+/**
+ *
+ * @author Huynh Anh Kiet
+ */
+public class AdminViewPlant extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            if (session.getAttribute("loginedUser") != null) {
+                Account acc = (Account) session.getAttribute("loginedUser");
+                if (acc.getRole() == 1) { //Only allow admin, unauthorized turn to logout
+                    //LOGIC FOR ARRAYLIST OF ARRAYLIST<PLANT>
+                    CategoryDAOImpl getCate = new CategoryDAOImpl();
+                    PlantDAOImpl getPlant = new PlantDAOImpl();
+                    ArrayList<Category> cateList = getCate.readAll();
+                    ArrayList<Plant> plantList = getPlant.readAllAdmin();
+                    request.setAttribute("cateList", cateList);
+                    request.setAttribute("plantList", plantList);
+                    request.getRequestDispatcher("WEB-INF/views/admin/AdminViewPlant.jsp").forward(request, response);
+                } else { //Return unauthorized access to logout
+                    request.getRequestDispatcher("Logout").forward(request, response);
+                }
+            } else { //No login detected
+                request.setAttribute("loginedUser", false);
+                request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("error", ex);
+            request.getRequestDispatcher("WEB-INF/views/error.jsp").forward(request, response);
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

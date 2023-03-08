@@ -5,13 +5,14 @@
 --%>
 
 <%@page import="workconstants.ControllerConstants"%>
+<%@ taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Login Page</title>
-                <link href="resources/css/index.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/index.css" rel="stylesheet" type="text/css"/>
 
         <style>
             .form-container {
@@ -90,13 +91,12 @@
                 }
                 return true;
             }
-            <%
-                if (request.getAttribute("loginedUser") != null) {
-            %>
-                alert("You have to login first!")
-            <%
-                }
-            %>
+            <c:if test="${requestScope.loginedUser == false}">
+            alert("You have to login first!")
+            </c:if>
+            <c:if test="${requestScope.isBlocked == true}">
+            alert("Your account is blocked!")
+            </c:if>
         </script>
     </body>
 </html>

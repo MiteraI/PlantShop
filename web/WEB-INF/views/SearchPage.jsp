@@ -25,7 +25,7 @@
     </head>
     <body>
         <%@include file="jspf/header.jspf"%>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap justify-center">
             <%                ArrayList<Plant> list = (ArrayList<Plant>) request.getAttribute("list");
                 if (list.size() > 0) {
                     for (Plant plant : list) {%>

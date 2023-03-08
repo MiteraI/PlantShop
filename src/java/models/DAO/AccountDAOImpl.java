@@ -21,7 +21,7 @@ import workconstants.AccountConstants;
 public class AccountDAOImpl implements AccountDAO {
 
     @Override
-    public Account read(String email, String password) throws SQLException, ClassNotFoundException {
+    public Account read(String email, String password) throws SQLException, ClassNotFoundException { //Act as login
         Connection conn = dbconnect.ConnectionUtils.getConnection();
         String sql = "SELECT * FROM dbo.Accounts WHERE email=? AND password=?";
         PreparedStatement pstm = conn.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class AccountDAOImpl implements AccountDAO {
                 break;
         }
         String sql = "UPDATE dbo.Accounts\n"
-                + "SET "+insertMode+" = ?\n"
+                + "SET " + insertMode + " = ?\n"
                 + "WHERE accID = ?";
 
         PreparedStatement pstm = conn.prepareStatement(sql);
@@ -105,7 +105,22 @@ public class AccountDAOImpl implements AccountDAO {
         conn.close();
         return false;
     }
-
+    public boolean statusChange(String accID, String status) throws SQLException, ClassNotFoundException {
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        String sql = "UPDATE dbo.Accounts\n"
+                + "SET " + AccountConstants.CHANGESTATUS + " = ?\n"
+                + "WHERE accID = ?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        int stat = Integer.parseInt(status) == 1 ? 0 : 1;
+        int id = Integer.parseInt(accID);
+        pstm.setInt(1, stat);
+        pstm.setInt(2, id);
+        if(pstm.executeUpdate() != 0) {
+            conn.close();
+            return true;
+        }
+        return false;
+    }
     @Override
     public boolean delete() throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -113,6 +128,26 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public ArrayList<Account> readAll() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT *\n"
+                + "from dbo.Accounts";
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        ArrayList<Account> accountList = new ArrayList();
+        while(rs.next()) {
+            int accID = rs.getInt("accID");
+            String email = rs.getString("email");
+            String pwd = rs.getString("password");
+            String name = rs.getString("fullname");
+            String phone = rs.getString("phone");
+            int status = rs.getInt("status");
+            int role = rs.getInt("role");
+            accountList.add(new Account(accID, name, email, pwd, phone, status, role));
+        }
+        conn.close();
+        if(!accountList.isEmpty()) {
+            return accountList;
+        }
         return new ArrayList<Account>();
     }
 

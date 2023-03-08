@@ -1,3 +1,14 @@
 <%-- any content can be specified here e.g.: --%>
+<%@page import="models.entities.Account"%>
 <%@ page pageEncoding="UTF-8" %>
-<h2>Hello World Again at the bottom!</h2>
+<br/><br/>
+
+<h1 class="text-center">Made by Facebook</h1>
+<%
+        if (session.getAttribute("loginedUser") != null) {
+            Account loginedUser = (Account) session.getAttribute("loginedUser");
+            if (loginedUser.getRole() == 1) {
+                out.print("<a href='AdminPageView'><h1 class='text-center'>Admin Page</h1></a>");
+            }
+        }
+    %>

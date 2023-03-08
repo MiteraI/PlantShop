@@ -35,17 +35,23 @@ public class ViewCart extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HashMap<Plant, Integer> cart = new HashMap();
-            PlantDAOImpl getPlant = new PlantDAOImpl();
             HttpSession session = request.getSession();
-            HashMap<String, Integer> sessionCart = (HashMap) session.getAttribute("cart");
-            if (sessionCart != null) {
-                for (String id : sessionCart.keySet()) {
-                    cart.put(getPlant.read(id), sessionCart.get(id));
+            if (session.getAttribute("loginedUser") != null) {
+                HashMap<Plant, Integer> cart = new HashMap();
+                PlantDAOImpl getPlant = new PlantDAOImpl();
+                HashMap<String, Integer> sessionCart = (HashMap) session.getAttribute("cart");
+                if (sessionCart != null) {
+                    for (String id : sessionCart.keySet()) {
+                        cart.put(getPlant.read(id), sessionCart.get(id));
+                    }
                 }
+                request.setAttribute("cart", cart);
+                request.getRequestDispatcher("WEB-INF/views/CartView.jsp").forward(request, response);
+            } else {
+                request.setAttribute("loginedUser", false);
+                request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
             }
-            request.setAttribute("cart", cart);
-            request.getRequestDispatcher("WEB-INF/views/CartView.jsp").forward(request, response);
+
         } catch (Exception ex) {
             System.out.println(ex);
         }

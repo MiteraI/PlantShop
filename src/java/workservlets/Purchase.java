@@ -41,25 +41,33 @@ public class Purchase extends HttpServlet {
             HashMap<Plant, Integer> cart = new HashMap();
             OrderDetailDAOImpl getOrderDetail = new OrderDetailDAOImpl();
             PlantDAOImpl getPlant = new PlantDAOImpl();
-            Account loginedUser = (Account) session.getAttribute("loginedUser");
-            if(loginedUser == null) { //Have to login before 
+            if (session.getAttribute("loginedUser") != null) {
+
+                Account loginedUser = (Account) session.getAttribute("loginedUser");
+                if (loginedUser == null) { //Have to login before 
+                    request.setAttribute("loginedUser", false);
+                    request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
+                }
+                HashMap<String, Integer> sessionCart = (HashMap) session.getAttribute("cart");
+                if (sessionCart != null && !sessionCart.isEmpty()) {
+                    for (String id : sessionCart.keySet()) {
+                        cart.put(getPlant.read(id), sessionCart.get(id));
+                    }
+                    for (Plant plant : cart.keySet()) {
+                        if (getOrderDetail.create(Integer.toString(loginedUser.getAccID()), Integer.toString(plant.getId()), Integer.toString(cart.get(plant)))) {
+                            System.out.println("Successful");
+                        } else {
+                            System.out.println("Something is wrong!");
+                        }
+                    }
+                    session.removeAttribute("cart");
+                    request.getRequestDispatcher("").forward(request, response);
+                } else {
+                    out.print("There is nothing in the cart");
+                }
+            } else {
                 request.setAttribute("loginedUser", false);
                 request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
-            }
-            HashMap<String, Integer> sessionCart = (HashMap) session.getAttribute("cart");
-            if (sessionCart != null && !sessionCart.isEmpty()) {
-                for (String id : sessionCart.keySet()) {
-                    cart.put(getPlant.read(id), sessionCart.get(id));
-                }
-                for (Plant plant : cart.keySet()) {
-                    if(getOrderDetail.create(Integer.toString(loginedUser.getAccID()), Integer.toString(plant.getId()), Integer.toString(cart.get(plant))))
-                        System.out.println("Successful");
-                    else System.out.println("Something is wrong!");
-                }
-                session.removeAttribute("cart");
-                request.getRequestDispatcher("").forward(request, response);
-            } else {
-                out.print("There is nothing in the cart");
             }
         } catch (Exception ex) {
             System.out.println(ex);

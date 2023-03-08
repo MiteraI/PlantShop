@@ -64,6 +64,38 @@
         <servlet-name>ChangeAccount</servlet-name>
         <servlet-class>workservlets.ChangeAccount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminViewAccount</servlet-name>
+        <servlet-class>admin.view.AdminViewAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminPageView</servlet-name>
+        <servlet-class>admin.view.AdminPageView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminViewOrder</servlet-name>
+        <servlet-class>admin.view.AdminViewOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StatusSwitch</servlet-name>
+        <servlet-class>admin.work.StatusSwitch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminViewCategory</servlet-name>
+        <servlet-class>admin.view.AdminViewCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CategoryAction</servlet-name>
+        <servlet-class>admin.work.CategoryAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminViewPlant</servlet-name>
+        <servlet-class>admin.view.AdminViewPlant</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlantAction</servlet-name>
+        <servlet-class>admin.work.PlantAction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern/>
@@ -127,6 +159,38 @@
     <servlet-mapping>
         <servlet-name>ChangeAccount</servlet-name>
         <url-pattern>/ChangeAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminViewAccount</servlet-name>
+        <url-pattern>/AdminViewAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminPageView</servlet-name>
+        <url-pattern>/AdminPageView</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminViewOrder</servlet-name>
+        <url-pattern>/AdminViewOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatusSwitch</servlet-name>
+        <url-pattern>/StatusSwitch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminViewCategory</servlet-name>
+        <url-pattern>/AdminViewCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CategoryAction</servlet-name>
+        <url-pattern>/CategoryAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminViewPlant</servlet-name>
+        <url-pattern>/AdminViewPlant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlantAction</servlet-name>
+        <url-pattern>/PlantAction</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

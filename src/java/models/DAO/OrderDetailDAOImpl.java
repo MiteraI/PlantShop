@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import models.DAOInterface.OrderDetailDAO;
 import models.entities.OrderDetail;
+import models.entities.Plant;
+import models.entities.UOrder;
 import workconstants.OrderConstants;
 
 /**
@@ -21,6 +23,56 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 
     @Override
     public OrderDetail read(String id) throws SQLException, ClassNotFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public OrderDetail read(int accID, String odID) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT\n"
+                + "    OrderDetails.DetailId,\n"
+                + "    OrderDetails.OrderID,\n"
+                + "    OrderDetails.PID,\n"
+                + "    Plants.PName,\n"
+                + "    Plants.price,\n"
+                + "    Plants.imgPath,\n"
+                + "    OrderDetails.quantity,\n"
+                + "    Orders.OrdDate,\n"
+                + "    Orders.shipdate,\n"
+                + "    Orders.status\n"
+                + "FROM\n"
+                + "    OrderDetails\n"
+                + "    INNER JOIN Orders ON OrderDetails.OrderID = Orders.OrderID\n"
+                + "    INNER JOIN Plants ON OrderDetails.PID = Plants.PID\n"
+                + "WHERE\n"
+                + "    Orders.AccID = ? AND OrderDetails.DetailId = ?\n"
+                + "select * from dbo.Orders";
+         
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, accID);
+        pstm.setInt(2, Integer.parseInt(odID));
+        ResultSet rs = pstm.executeQuery();
+        UOrder uOrder = null;
+        Plant plant = null;
+        OrderDetail orderDetail = null;
+        while (rs.next()) {
+            int orderDetailID = rs.getInt("DetailId");
+            int orderID = rs.getInt("OrderID");
+            int plantID = rs.getInt("PID");
+            String plantName = rs.getString("PName");
+            double price = rs.getDouble("price");
+            String imgPath = rs.getString("imgPath");
+            int quantity = rs.getInt("quantity");
+            String orderDate = rs.getString("OrdDate");
+            String shippingDate = rs.getString("shipdate");
+            int status = rs.getInt("status");
+            uOrder = new UOrder(orderID, orderDate, shippingDate, status);
+            plant = new Plant(accID, plantName, price, imgPath);
+            orderDetail = new OrderDetail(orderDetailID, uOrder, plant, quantity);
+        }
+        conn.close();
+        if (orderDetail != null) {
+            return orderDetail;
+        }
         return null;
     }
 
@@ -33,15 +85,18 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
                 + "INSERT INTO OrderDetails (OrderID, PID, quantity)\n"
                 + "VALUES ((SELECT MAX(OrderID) FROM Orders), ? , ?);"; //PID and quanity take from cart
         Connection conn = dbconnect.ConnectionUtils.getConnection();
-//        conn.setAutoCommit(false); Will research this later
+//        conn.setAutoCommit(false);
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1, accID);
         pstm.setString(2, PID);
         pstm.setString(3, quantity);
-        if (pstm.executeUpdate() > 0) {
+        if (pstm.executeUpdate() > 1) {
+            //           conn.commit();
+            //           conn.setAutoCommit(true);
             conn.close();
             return true;
         }
+        conn.close();
         return false;
     }
 
@@ -55,7 +110,6 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
                 + "SET status = ?\n"
                 + "WHERE orderID = ? AND accID = ?;"; //PID and quanity take from cart
         Connection conn = dbconnect.ConnectionUtils.getConnection();
-//        conn.setAutoCommit(false); Will research this later
         PreparedStatement pstm = conn.prepareStatement(sql);
         switch (action) {
             case OrderConstants.CANCEL:
@@ -122,12 +176,14 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
                 + "    INNER JOIN Orders ON OrderDetails.OrderID = Orders.OrderID\n"
                 + "    INNER JOIN Plants ON OrderDetails.PID = Plants.PID\n"
                 + "WHERE\n"
-                + "    Orders.AccID = ?;\n"
-                + "select * from dbo.Orders";
+                + "    Orders.AccID = ?;\n";
         Connection conn = dbconnect.ConnectionUtils.getConnection();
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setInt(1, accID);
         ResultSet rs = pstm.executeQuery();
+        Plant plant = null;
+        UOrder uOrder = null;
+        OrderDetail orderDetail = null;
         ArrayList<OrderDetail> orderList = new ArrayList();
         while (rs.next()) {
             int orderDetailID = rs.getInt("DetailId");
@@ -140,7 +196,10 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
             String orderDate = rs.getString("OrdDate");
             String shippingDate = rs.getString("shipdate");
             int status = rs.getInt("status");
-            orderList.add(new OrderDetail(orderDetailID, orderID, plantID, plantName, price, imgPath, quantity, orderDate, shippingDate, status));
+            plant = new Plant(plantID, plantName, price, imgPath);
+            uOrder = new UOrder(orderID, orderDate, shippingDate, status);
+            orderDetail = new OrderDetail(orderDetailID, uOrder, plant, quantity);
+            orderList.add(orderDetail);
         }
         conn.close();
         if (!orderList.isEmpty()) {
@@ -148,5 +207,53 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         }
         return new ArrayList<OrderDetail>();
     }
-
+     public ArrayList<OrderDetail> readAllAdmin() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT\n"
+                + "    OrderDetails.DetailId,\n"
+                + "    OrderDetails.OrderID,\n"
+                + "    OrderDetails.PID,\n"
+                + "    Plants.PName,\n"
+                + "    Plants.price,\n"
+                + "    Plants.imgPath,\n"
+                + "    OrderDetails.quantity,\n"
+                + "    Orders.OrdDate,\n"
+                + "    Orders.shipdate,\n"
+                + "    Orders.AccID,\n"
+                + "    Orders.status\n"
+                + "FROM\n"
+                + "    OrderDetails\n"
+                + "    INNER JOIN Orders ON OrderDetails.OrderID = Orders.OrderID\n"
+                + "    INNER JOIN Plants ON OrderDetails.PID = Plants.PID\n";
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        Plant plant = null;
+        UOrder uOrder = null;
+        OrderDetail orderDetail = null;
+        ArrayList<OrderDetail> orderList = new ArrayList();
+        while (rs.next()) {
+            int orderDetailID = rs.getInt("DetailId");
+            int orderID = rs.getInt("OrderID");
+            int plantID = rs.getInt("PID");
+            String plantName = rs.getString("PName");
+            double price = rs.getDouble("price");
+            String imgPath = rs.getString("imgPath");
+            int quantity = rs.getInt("quantity");
+            String orderDate = rs.getString("OrdDate");
+            String shippingDate = rs.getString("shipdate");
+            int accID = rs.getInt("AccID");
+            int status = rs.getInt("status");
+            plant = new Plant(plantID, plantName, price, imgPath);
+            uOrder = new UOrder(orderID, orderDate, shippingDate, status, accID);
+            orderDetail = new OrderDetail(orderDetailID, uOrder, plant, quantity);
+            orderList.add(orderDetail);
+        }
+        conn.close();
+        if (!orderList.isEmpty()) {
+            return orderList;
+        }
+        return new ArrayList<OrderDetail>();
+    }
 }
+
+

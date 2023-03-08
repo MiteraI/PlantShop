@@ -11,27 +11,21 @@ package models.entities;
 public class OrderDetail {
 
     private int orderDetailID;
-    private int orderID;
-    private int plantID;
-    private String plantName;
-    private double price;
-    private String imgPath;
+    private UOrder uOrder;
+    private Plant plant;
     private int quantity;
-    private String orderDate;
-    private String shippingDate;
-    private int status;
+
     // Constructor
-    public OrderDetail(int orderDetailID, int orderID, int plantID, String plantName, double price, String imgPath, int quantity, String orderDate, String shippingDate, int status) {
+    public OrderDetail(int orderDetailID, UOrder uOrder, Plant plant, int quantity) {
         this.orderDetailID = orderDetailID;
-        this.orderID = orderID;
-        this.plantID = plantID;
-        this.plantName = plantName;
-        this.price = price;
-        this.imgPath = imgPath;
+        this.uOrder = uOrder;
+        this.plant = plant;
         this.quantity = quantity;
-        this.orderDate = orderDate;
-        this.shippingDate = shippingDate;
-        this.status = status;
+    }
+
+    // Special get function just for price 
+    public double getPrice() {
+        return plant.getPrice() * quantity;
     }
 
     /**
@@ -49,73 +43,31 @@ public class OrderDetail {
     }
 
     /**
-     * @return the orderID
+     * @return the uOrder
      */
-    public int getOrderID() {
-        return orderID;
+    public UOrder getuOrder() {
+        return uOrder;
     }
 
     /**
-     * @param orderID the orderID to set
+     * @param uOrder the uOrder to set
      */
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setuOrder(UOrder uOrder) {
+        this.uOrder = uOrder;
     }
 
     /**
-     * @return the plantID
+     * @return the plant
      */
-    public int getPlantID() {
-        return plantID;
+    public Plant getPlant() {
+        return plant;
     }
 
     /**
-     * @param plantID the plantID to set
+     * @param plant the plant to set
      */
-    public void setPlantID(int plantID) {
-        this.plantID = plantID;
-    }
-
-    /**
-     * @return the plantName
-     */
-    public String getPlantName() {
-        return plantName;
-    }
-
-    /**
-     * @param plantName the plantName to set
-     */
-    public void setPlantName(String plantName) {
-        this.plantName = plantName;
-    }
-
-    /**
-     * @return the price
-     */
-    public double getPrice() {
-        return price;
-    }
-
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    /**
-     * @return the imgPath
-     */
-    public String getImgPath() {
-        return imgPath;
-    }
-
-    /**
-     * @param imgPath the imgPath to set
-     */
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
+    public void setPlant(Plant plant) {
+        this.plant = plant;
     }
 
     /**
@@ -132,45 +84,4 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    /**
-     * @return the orderDate
-     */
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    /**
-     * @param orderDate the orderDate to set
-     */
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    /**
-     * @return the shippingDate
-     */
-    public String getShippingDate() {
-        return shippingDate;
-    }
-
-    /**
-     * @param shippingDate the shippingDate to set
-     */
-    public void setShippingDate(String shippingDate) {
-        this.shippingDate = shippingDate;
-    }
-
-    /**
-     * @return the status
-     */
-    public int getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(int status) {
-        this.status = status;
-    }
 }

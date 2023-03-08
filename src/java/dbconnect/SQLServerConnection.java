@@ -36,8 +36,7 @@ public class SQLServerConnection {
         // Ví dụ:
         // jdbc:jtds:sqlserver://localhost:1433/simplehr;instance=SQLEXPRESS
         String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
-                + ";instance=" + sqlInstanceName + ";databaseName=" + database
-                + ";encrypt=true;trustServerCertificate=true";
+                + ";instance=" + sqlInstanceName + ";databaseName=" + database;
         Connection conn = DriverManager.getConnection(connectionURL, userName, password);
         return conn;
     }

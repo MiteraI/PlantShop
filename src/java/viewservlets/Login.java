@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.DAO.AccountDAOImpl;
 import models.entities.Account;
+import workconstants.AccountConstants;
 
 /**
  *
@@ -40,6 +41,7 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            request.setAttribute("loginedUser", true);
             request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
         }
     }
@@ -48,23 +50,46 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+        try {
+            HttpSession session = request.getSession();
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             AccountDAOImpl account = new AccountDAOImpl();
             Account loginedUser = account.read(email, password);
-            if (loginedUser != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("loginedUser", loginedUser);
-                request.getRequestDispatcher("").forward(request, response);
+            if (loginedUser != null) { //Checking if such account exist
+                if (loginedUser.getStatus() == AccountConstants.ACTIVE) { //Checking for account status active or blocked
+                    if (loginedUser.getRole() == AccountConstants.USER) { //Active so check for account's role
+                        //If account is user
+                        session.setAttribute("loginedUser", loginedUser);
+                        request.getRequestDispatcher("").forward(request, response);
+                    } else {
+                        //If account is admin
+                        session.setAttribute("loginedUser", loginedUser);
+                        request.getRequestDispatcher("WEB-INF/views/admin/AdminView.jsp").forward(request, response);
+                    }
+                } else {
+                    //If account is blocked
+                    if (loginedUser.getRole() == AccountConstants.ADMIN) { 
+                        //If account is admin grant access regardless
+                        session.setAttribute("loginedUser", loginedUser);
+                        request.getRequestDispatcher("WEB-INF/views/admin/AdminView.jsp").forward(request, response);
+                    } else {
+                        //If account is blocked and is user
+                        request.setAttribute("isBlocked", true);
+                        request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
+                        session.invalidate();
+                    }
+                }
             } else {
+                //Account don't exist
                 request.setAttribute("loginStatus", false);
                 request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
             }
-            
+
         } catch (Exception ex) {
             System.out.println(ex);
+            request.setAttribute("error", ex);
+            request.getRequestDispatcher("WEB-INF/views/error.jsp");
         }
     }
 

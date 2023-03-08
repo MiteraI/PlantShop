@@ -32,7 +32,7 @@
                                 + "<a class='text-center' href='MainController?action=" + ControllerConstants.VIEW + "&id=" + plant.getId() + "'><button>View plant</button></a>"
                                 //                                + "<a href='MainController?action=" + Constants.ADDTOCART + "&id=" + plant.getId() + "'><button id='buyButton'>Buy plant</button></a>"
                                 + "</div>");
-                        total = total + plant.getPrice();
+                        total = total + plant.getPrice()*cart.get(plant);
                     }
                     out.print("");
                 } else {

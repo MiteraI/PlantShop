@@ -79,7 +79,7 @@
                         <label>Number of items:</label>
                         <input type="number" name="quantity" min="1" value="1">
                     </div>            
-                        <input class="cart-button border-2 bg-slate-200" type="submit" value="Put to Cart">       
+                        <input class="cart-button border-2 bg-orange-600" type="submit" value="Put to Cart">       
                 </form>
             </div>
         </div>

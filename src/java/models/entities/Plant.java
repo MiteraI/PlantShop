@@ -9,14 +9,29 @@ package models.entities;
  * @author Huynh Anh Kiet
  */
 public class Plant {
+
     private int id;
     private String name;
     private double price;
     private String imgPath;
     private String description;
     private int status;
+    private Category cate;
+
     public Plant() {
     }
+
+    //Constructor for viewing order, description is not needed, status is not needed 
+    //if status is false then user should not have been able to order in the first place
+    public Plant(int id, String name, double price, String imgPath) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.imgPath = imgPath;
+        this.status = status;
+    }
+
+    //Constructor for general purpose like homepage...
     public Plant(int id, String name, double price, String imgPath, String description, int status) {
         this.id = id;
         this.name = name;
@@ -25,6 +40,18 @@ public class Plant {
         this.description = description;
         this.status = status;
     }
+
+    //Constructor for editing plant table for admin
+    public Plant(int id, String name, double price, String imgPath, String description, int status, Category cate) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.imgPath = imgPath;
+        this.description = description;
+        this.status = status;
+        this.cate = cate;
+    }
+
     /**
      * @return the name
      */
@@ -88,6 +115,16 @@ public class Plant {
         return status;
     }
 
+    public String getStatusInString() {
+        switch (this.status) {
+            case 0:
+                return "Out of Stock";
+            case 1:
+                return "In Stock";
+        }
+        return "";
+    }
+
     /**
      * @param status the status to set
      */
@@ -108,4 +145,19 @@ public class Plant {
     public void setId(int id) {
         this.id = id;
     }
+
+    /**
+     * @return the Cate
+     */
+    public Category getCate() {
+        return cate;
+    }
+
+    /**
+     * @param CateID the CateID to set
+     */
+    public void setCate(Category cate) {
+        this.cate = cate;
+    }
+
 }

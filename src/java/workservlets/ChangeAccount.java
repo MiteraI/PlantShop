@@ -54,8 +54,7 @@ public class ChangeAccount extends HttpServlet {
                     getAcc.update(mode, request.getParameter(mode), acc.getAccID());
                     break;
             }
-   
-           request.getRequestDispatcher("Logout").forward(request, response);
+           request.getRequestDispatcher("").forward(request, response);
         } catch (Exception ex) {
             System.out.println(ex);
             System.out.println("Sth wrong");

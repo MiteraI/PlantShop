@@ -12,9 +12,11 @@ public class AccountConstants {
 
     public static final int ADMIN = 1;
     public static final int USER = 0;
+    public static final int ACTIVE = 1;
+    public static final int BLOCKED = 0;
     public static final String CHANGENAME = "fullname";
     public static final String CHANGEPHONE = "phone";
     public static final String CHANGEEMAIL = "email";
     public static final String CHANGEPASSWORD = "password";
-
+    public static final String CHANGESTATUS = "status";
 }
