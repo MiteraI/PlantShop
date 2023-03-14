@@ -33,7 +33,7 @@
                         <tr>
                             <td>${plant.id}</td>
                             <td>${plant.name}</td>
-                            <td>${plant.price}</td>
+                            <td>${plant.price}</td> <-<!-- Will have to implement a form in here for price change -->
                             <td>${plant.description}</td>
                             <td>${plant.getStatusInString()}</td>
                             <td>

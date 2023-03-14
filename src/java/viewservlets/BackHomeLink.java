@@ -6,11 +6,13 @@ package viewservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.DAO.PlantDAOImpl;
+import models.entities.Plant;
 
 /**
  *
@@ -32,7 +34,14 @@ public class BackHomeLink extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           request.getRequestDispatcher("").forward(request, response);
+            PlantDAOImpl getPlant = new PlantDAOImpl();
+            ArrayList<Plant> plantList = getPlant.readAll();
+            request.setAttribute("list", plantList);
+            request.getRequestDispatcher("WEB-INF/views/Homepage.jsp").forward(request, response);
+            request.removeAttribute("list");
+        } catch (Exception ex) {
+            request.setAttribute("error", ex);
+            request.getRequestDispatcher("WEB-INF/views/error.jsp").forward(request, response);
         }
     }
 

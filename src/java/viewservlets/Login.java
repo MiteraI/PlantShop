@@ -6,7 +6,9 @@ package viewservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,9 +34,9 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,7 +47,7 @@ public class Login extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
         }
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,13 +56,24 @@ public class Login extends HttpServlet {
             HttpSession session = request.getSession();
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            AccountDAOImpl account = new AccountDAOImpl();
-            Account loginedUser = account.read(email, password);
+            AccountDAOImpl getAccount = new AccountDAOImpl();
+            Account loginedUser = getAccount.read(email, password);
             if (loginedUser != null) { //Checking if such account exist
                 if (loginedUser.getStatus() == AccountConstants.ACTIVE) { //Checking for account status active or blocked
                     if (loginedUser.getRole() == AccountConstants.USER) { //Active so check for account's role
                         //If account is user
                         session.setAttribute("loginedUser", loginedUser);
+                        if (request.getParameter("saveLogin") != null) { //Create a cookie when the stay signed in checkbox is checked
+                            UUID uuid = UUID.randomUUID(); //Create a random 32 character String which is too long for database
+                            String biscuitValue = utils.HashingUtils.hashToKey(uuid.toString()); //Hash the uuid into only 10 char to save to database
+                            Cookie biscuit = new Cookie("PlantShopToken", biscuitValue);
+                            //Set the cookie's properties
+                            biscuit.setMaxAge(60*60*24); //1 day before expire
+                            biscuit.setHttpOnly(true);
+                            
+                            response.addCookie(biscuit); //Tell browser to save cookie
+                            getAccount.saveCookie(biscuitValue, loginedUser.getAccID()); //Save cookie value into database
+                        }
                         request.getRequestDispatcher("").forward(request, response);
                     } else {
                         //If account is admin
@@ -69,7 +82,7 @@ public class Login extends HttpServlet {
                     }
                 } else {
                     //If account is blocked
-                    if (loginedUser.getRole() == AccountConstants.ADMIN) { 
+                    if (loginedUser.getRole() == AccountConstants.ADMIN) {
                         //If account is admin grant access regardless
                         session.setAttribute("loginedUser", loginedUser);
                         request.getRequestDispatcher("WEB-INF/views/admin/AdminView.jsp").forward(request, response);
@@ -85,14 +98,14 @@ public class Login extends HttpServlet {
                 request.setAttribute("loginStatus", false);
                 request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
             }
-
+            
         } catch (Exception ex) {
             System.out.println(ex);
             request.setAttribute("error", ex);
             request.getRequestDispatcher("WEB-INF/views/error.jsp");
         }
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Short description";

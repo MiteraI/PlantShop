@@ -17,6 +17,7 @@
         <style>
             .form-container {
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
@@ -50,7 +51,15 @@
             .form input[type="submit"]:hover {
                 background-color: #3e8e41;
             }
-
+            .link {
+                width: 100%;
+                padding: 10px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
             .error {
                 color: red;
             }
@@ -63,6 +72,8 @@
                 <input type="text" id="email" name="email" placeholder="Email">
                 <input type="password" id="password" name="password" placeholder="Password">
                 <input type="submit" value="<%=ControllerConstants.LOGIN%>" name="action">
+                <input type="checkbox" value="saveLogin" name="saveLogin"> Stay signed in
+                <br>
                 <p class="error" id="error"></p>
                 <%
                     if (request.getAttribute("loginStatus") != null) {
@@ -74,6 +85,8 @@
                     }
                 %>
             </form>
+            <br/><br/>
+            <a href="register"><button class="link">Register</button></a>
         </div>
         <script>
             function validateForm() {

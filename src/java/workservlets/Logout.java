@@ -7,6 +7,7 @@ package workservlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,8 +34,12 @@ public class Logout extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            session.invalidate(); //Better than remove attribute manually
-            request.getRequestDispatcher("").forward(request, response);
+            session.invalidate(); //Better than remove each attribute manually
+            //Deleting cookie on browser because they need to be able to use other account duhh
+            Cookie biscuit = new Cookie("PlantShopToken", "");
+            biscuit.setMaxAge(0); //Set the expiration to default meaning immediatly decay
+            response.addCookie(biscuit);
+            request.getRequestDispatcher("Home").forward(request, response);
         }
     }
 
