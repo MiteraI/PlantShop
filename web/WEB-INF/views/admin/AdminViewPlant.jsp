@@ -33,7 +33,16 @@
                         <tr>
                             <td>${plant.id}</td>
                             <td>${plant.name}</td>
-                            <td>${plant.price}</td> <-<!-- Will have to implement a form in here for price change -->
+                            <td> 
+                                <form action="PlantAction" method="post">
+                                    <input type="hidden" name="id" value="${plant.id}">
+                                    <input type="hidden" name="action" value="<%=PlantConstants.PRICE%>">
+                                    <input type="number" name="price" min="1" max="100" value="${plant.price}" required>
+                                    <input type="submit" value="Change price">
+                                </form>
+                            </td>
+                            <!-- Will have to implement a form in here for price change -->
+
                             <td>${plant.description}</td>
                             <td>${plant.getStatusInString()}</td>
                             <td>
@@ -68,7 +77,7 @@
                 <label>Description (limited to 20 characters):</label>
                 <input type="text" maxlength="20" id="description" name="description" required>
 
-                <button type="submit">Submit</button>
+                <button type="submit">New plant</button>
             </form>
             <hr/>
         </c:forEach>

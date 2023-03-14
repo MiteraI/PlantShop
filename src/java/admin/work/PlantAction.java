@@ -5,13 +5,12 @@
 package admin.work;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.DAO.PlantDAOImpl;
-import workconstants.CategoryConstants;
+import workconstants.PlantConstants;
 
 /**
  *
@@ -37,7 +36,7 @@ public class PlantAction extends HttpServlet {
             String id = request.getParameter("id"); //In change and delete, it is plant's id
             //In create, it is category's id
             switch (action) {
-                case CategoryConstants.CREATE:
+                case PlantConstants.CREATE:
                     if (!id.isBlank() || !id.isEmpty()) {
                         String PName = request.getParameter("PName");
                         String price = request.getParameter("price");
@@ -47,7 +46,7 @@ public class PlantAction extends HttpServlet {
                         }
                     }
                     break;
-                case CategoryConstants.CHANGE:
+                case PlantConstants.CHANGE:
                     if (!id.isBlank() || !id.isEmpty()) {
                         String status = request.getParameter("status");
                         if (!status.isBlank() || !status.isEmpty()) {
@@ -55,9 +54,14 @@ public class PlantAction extends HttpServlet {
                         }
                     }
                     break;
-                case CategoryConstants.DELETE:
+                case PlantConstants.DELETE:
                     if (!id.isBlank() || !id.isEmpty()) {
                         getPlant.delete(id);
+                    }
+                    break;
+                case PlantConstants.PRICE:
+                    if (!id.isBlank() || !id.isEmpty()) {
+                        getPlant.priceChange(id, request.getParameter("price"));
                     }
                     break;
                 default:

@@ -11,5 +11,6 @@ package workconstants;
 public class PlantConstants {
     public static final String CREATE = "create";
     public static final String CHANGE = "change";
+    public static final String PRICE = "price";
     public static final String DELETE = "delete";
 }

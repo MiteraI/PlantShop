@@ -93,7 +93,21 @@ public class PlantDAOImpl implements PlantDAO {
     public boolean update() throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    public boolean priceChange(String PID, String price) throws SQLException, ClassNotFoundException {
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        String sql = "UPDATE dbo.Plants\n"
+                + "SET price = ?\n"
+                + "WHERE PID = ?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setDouble(1, Double.parseDouble(price));
+        int id = Integer.parseInt(PID);
+        pstm.setInt(2, id);
+        if (pstm.executeUpdate() > 0) {
+            conn.close();
+            return true;
+        }
+        return false;
+    }
     public boolean statusChange(String PID, String status) throws SQLException, ClassNotFoundException {
         Connection conn = dbconnect.ConnectionUtils.getConnection();
         String sql = "UPDATE dbo.Plants\n"
@@ -104,7 +118,7 @@ public class PlantDAOImpl implements PlantDAO {
         int id = Integer.parseInt(PID);
         pstm.setInt(1, stat);
         pstm.setInt(2, id);
-        if (pstm.executeUpdate() != 0) {
+        if (pstm.executeUpdate() > 0) {
             conn.close();
             return true;
         }
