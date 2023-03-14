@@ -12,6 +12,7 @@
         <title>Welcome ${sessionScope.loginedUser.name}</title>
     </head>
     <body>
+        <%@include file="../jspf/adminheader.jspf" %>
         <a href="Home"><h1>Go to user's page</h1></a>
         <a href="AdminViewAccount"><h1>View all account</h1></a>
         <a href="AdminViewOrder"><h1>View all orders</h1></a>

@@ -36,7 +36,7 @@
                                             + "<a href='MainController?action=" + Constants.VIEW + "&id=" + plant.getId() + "'><button>View plant</button></a>"
                                             //                                + "<a href='MainController?action=" + Constants.ADDTOCART + "&id=" + plant.getId() + "'><button id='buyButton'>Buy plant</button></a>"
                                             + "</div>");-->
-            <div class="flex-col justify-center">
+            <div class="flex-col justify-center m-4">
                 <img
                     class="w-48 h-48"
                     src="./resources/img/<%=plant.getImgPath()%>"

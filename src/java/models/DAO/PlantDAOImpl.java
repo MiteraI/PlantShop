@@ -134,7 +134,7 @@ public class PlantDAOImpl implements PlantDAO {
     //Read all for general purpose like homepage...
     public ArrayList<Plant> readAll() throws SQLException, ClassNotFoundException {
         ArrayList<Plant> plantList = new ArrayList<>();
-        String sql = "SELECT * FROM dbo.Plants";
+        String sql = "SELECT * FROM dbo.Plants WHERE status = 1"; //Only show users plants that are in stock
         Connection conn = dbconnect.ConnectionUtils.getConnection();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
@@ -153,8 +153,8 @@ public class PlantDAOImpl implements PlantDAO {
         }
         return new ArrayList<Plant>();
     }
+    
     //Read all for admin, able to view category of plant
-
     public ArrayList<Plant> readAllAdmin() throws SQLException, ClassNotFoundException {
         ArrayList<Plant> plantList = new ArrayList<>();
         String sql = "SELECT Plants.PID,\n"

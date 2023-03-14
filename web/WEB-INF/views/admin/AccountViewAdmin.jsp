@@ -14,6 +14,7 @@
         <title>Admin View Account</title>
     </head>
     <body>
+        <%@include file="../jspf/adminheader.jspf" %>
         <table>
             <tr>
                 <th>Name</th>

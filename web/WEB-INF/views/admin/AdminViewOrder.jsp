@@ -12,11 +12,13 @@
 
     </head>
     <body>
-        <%@include file="../jspf/header.jspf"%>
+        <%@include file="../jspf/adminheader.jspf" %>
         <div class="flex-col m-10">
             <form action="" method="get">
                 <label for="dateFilter">Filter by Order Date:</label>
                 <input type="date" id="dateFilter" name="dateFilter">
+                <label for="userFilter">Filter by User:</label>
+                <input type="number" id="dateFilter" name="userFilter">
                 <input type="submit" value="Filter">
             </form>
             <br />
@@ -41,20 +43,18 @@
                     <h1>Shipping date: <%=order.getuOrder().getShipDate()%></h1>
                 </div>
                 <div class="flex-col space-y-4">
-                    <h1 class="text-right">Price: <%=order.getPrice()%>$</h1>
-                    <h1 class="text-right">Total: <%=order.getPrice() * order.getQuantity()%>$</h1>
+                    <h1 class="text-right">Price: <%=order.getPlant().getPrice()%>$</h1>
+                    <h1 class="text-right">Total: <%=order.getQuantity()%>$</h1>
                     <div>
-                        <form method="post" action="OrderAction">
-                            <input type="hidden" name="action" value="<%=OrderConstants.CANCEL%>">
-                            <input type="hidden" name="id" value="<%=order.getuOrder().getuOrderID()%>">
-                            <input type="hidden" name="pid" value="<%=order.getPlant().getId()%>">
-                            <button type="submit">Cancel order</button>
-                        </form>
                         <form method="post" action="OrderAction">
                             <input type="hidden" name="action" value="<%=OrderConstants.COMPLETE%>">
                             <input type="hidden" name="id" value="<%=order.getuOrder().getuOrderID()%>">
-                            <input type="hidden" name="pid" value="<%=order.getPlant().getId()%>">
                             <button type="submit">Complete order</button>
+                        </form>
+                        <form method="post" action="OrderAction">
+                            <input type="hidden" name="action" value="<%=OrderConstants.DELETE%>">
+                            <input type="hidden" name="id" value="<%=order.getuOrder().getuOrderID()%>">
+                            <button type="submit">Delete order</button>
                         </form>
                     </div>
                 </div>
@@ -88,10 +88,14 @@
                     <h1>Shipping date: <%=order.getuOrder().getShipDate()%></h1>
                 </div>
                 <div class="flex-col space-y-4">
-                    <h1 class="text-right">Price: <%=order.getPrice()%>$</h1>
-                    <h1 class="text-right">Total: <%=order.getPrice() * order.getQuantity()%>$</h1>
+                    <h1 class="text-right">Price: <%=order.getPlant().getPrice()%>$</h1>
+                    <h1 class="text-right">Total: <%=order.getPrice()%>$</h1>
                     <div>
-                        <a href="ViewOrderDetail?id=<%=order.getOrderDetailID()%>">View details</a>
+                        <form method="post" action="OrderAction">
+                            <input type="hidden" name="action" value="<%=OrderConstants.DELETE%>">
+                            <input type="hidden" name="id" value="<%=order.getuOrder().getuOrderID()%>">
+                            <button type="submit">Delete order</button>
+                        </form>                    
                     </div>
                 </div>
             </div>
@@ -103,7 +107,7 @@
             %>
             <hr />
             <br />
-            <h1>CANCELED ORDERS</h1>
+            <h1>CANCELLED ORDERS</h1>
             <hr />
             <%
                 ArrayList<OrderDetail> canceledOrderList = (ArrayList<OrderDetail>) request.getAttribute("canceledOrderList");
@@ -126,16 +130,14 @@
                     <h1>Shipping date: <%=order.getuOrder().getShipDate()%></h1>
                 </div>
                 <div class="flex-col space-y-4">
-                    <h1 class="text-right">Price: <%=order.getPrice()%>$</h1>
-                    <h1 class="text-right">Total: <%=order.getPrice() * order.getQuantity()%>$</h1>
+                    <h1 class="text-right">Price: <%=order.getPlant().getPrice()%>$</h1>
+                    <h1 class="text-right">Total: <%=order.getPrice()%>$</h1>
                     <div>
                         <form method="post" action="OrderAction">
-                            <input type="hidden" name="action" value="<%=OrderConstants.REORDER%>">
+                            <input type="hidden" name="action" value="<%=OrderConstants.DELETE%>">
                             <input type="hidden" name="id" value="<%=order.getuOrder().getuOrderID()%>">
-                            <input type="hidden" name="pid" value="<%=order.getPlant().getId()%>">
-                            <button type="submit">Re-order</button>
-                        </form>
-                        <a href="ViewOrderDetail?id=<%=order.getOrderDetailID()%>">View details</a>
+                            <button type="submit">Delete order</button>
+                        </form>                    
                     </div>
                 </div>
             </div>

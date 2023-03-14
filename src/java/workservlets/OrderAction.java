@@ -45,9 +45,11 @@ public class OrderAction extends HttpServlet {
                     switch (action) {
                         case OrderConstants.CANCEL:
                             getOrder.updateUserOrder(action, id, account.getAccID());
+                            request.getRequestDispatcher("ViewOrder").forward(request, response);
                             break;
                         case OrderConstants.REORDER:
                             getOrder.updateUserOrder(action, id, account.getAccID());
+                            request.getRequestDispatcher("ViewOrder").forward(request, response);
                             break;
                         default:
                             out.print("You are doing sth here?");
@@ -58,19 +60,26 @@ public class OrderAction extends HttpServlet {
                 case 1:
                     switch (action) {
                         case OrderConstants.CANCEL:
+                            getOrder.updateUserOrder(action, id, account.getAccID());
+                            request.getRequestDispatcher("ViewOrder").forward(request, response);
                             break;
                         case OrderConstants.REORDER:
+                            getOrder.updateUserOrder(action, id, account.getAccID());
+                            request.getRequestDispatcher("ViewOrder").forward(request, response);
                             break;
                         case OrderConstants.DELETE:
+                            getOrder.delete(id);
+                            request.getRequestDispatcher("AdminViewOrder").forward(request, response);
                             break;
                         case OrderConstants.COMPLETE:
+                            getOrder.complete(id);
+                            request.getRequestDispatcher("AdminViewOrder").forward(request, response);
                             break;
                         default:
                             System.out.println("Something fishy is going on");
                             break;
                     }
             }
-            request.getRequestDispatcher("ViewOrder").forward(request, response);
         } catch (Exception ex) {
             System.out.println(ex);
         }

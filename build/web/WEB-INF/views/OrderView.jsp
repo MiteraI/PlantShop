@@ -42,8 +42,8 @@
                     </div>
                 </div>
                 <div class="flex-col space-y-4">
-                    <h1 class="text-right">Price: <%=order.getPrice()%>$</h1>
-                    <h1 class="text-right">Total: <%=order.getPrice() * order.getQuantity()%>$</h1>
+                    <h1 class="text-right">Price: <%=order.getPlant().getPrice()%>$</h1>
+                    <h1 class="text-right">Total: <%=order.getPrice()%>$</h1>
                     <div>
                         <form method="post" action="OrderAction">
                             <input type="hidden" name="action" value="<%=OrderConstants.CANCEL%>">
@@ -79,8 +79,8 @@
                     </div>
                 </div>
                 <div class="flex-col space-y-4">
-                    <h1 class="text-right">Price: <%=order.getPrice()%>$</h1>
-                    <h1 class="text-right">Total: <%=order.getPrice() * order.getQuantity()%>$</h1>
+                    <h1 class="text-right">Price: <%=order.getPlant().getPrice()%>$</h1>
+                    <h1 class="text-right">Total: <%=order.getPrice()%>$</h1>
                     <div>
                         <a href="ViewOrderDetail?id=<%=order.getOrderDetailID()%>">View details</a>
                     </div>
@@ -94,7 +94,7 @@
             %>
             <hr />
             <br />
-            <h1>CANCELED ORDERS</h1>
+            <h1>CANCELLED ORDERS</h1>
             <hr />
             <%
                 ArrayList<OrderDetail> canceledOrderList = (ArrayList<OrderDetail>) request.getAttribute("canceledOrderList");
@@ -112,8 +112,8 @@
                     </div>
                 </div>
                 <div class="flex-col space-y-4">
-                    <h1 class="text-right">Price: <%=order.getPrice()%>$</h1>
-                    <h1 class="text-right">Total: <%=order.getPrice() * order.getQuantity()%>$</h1>
+                    <h1 class="text-right">Price: <%=order.getPlant().getPrice()%>$</h1>
+                    <h1 class="text-right">Total: <%=order.getPrice()%>$</h1>
                     <div>
                         <form method="post" action="OrderAction">
                             <input type="hidden" name="action" value="<%=OrderConstants.REORDER%>">

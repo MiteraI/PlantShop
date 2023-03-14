@@ -14,6 +14,7 @@
         <title>Plant View</title>
     </head>
     <body>
+        <%@include file="../jspf/adminheader.jspf" %>
         <c:forEach items="${requestScope.cateList}" var="cate">
             <h2>${cate.name}</h2>
             <hr/>
@@ -57,7 +58,7 @@
             <form action="PlantAction" method="post">
                 <input type="hidden" name="action" value="<%=PlantConstants.CREATE%>">
                 <input type="hidden" name="id" value="${cate.id}">
-                
+
                 <label>Plant Name:</label>
                 <input type="text" id="plantName" name="PName" required>
 

@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.entities.Account;
 
 /**
  *
@@ -30,8 +32,19 @@ public class AdminPageView extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("loginedUser") != null) {
+                Account acc = (Account) session.getAttribute("loginedUser");
+                if (acc.getRole() == 1) {
+                    request.getRequestDispatcher("WEB-INF/views/admin/AdminView.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("Logout").forward(request, response);
+                }
+            } else {
+                request.setAttribute("loginedUser", false);
+                request.getRequestDispatcher("WEB-INF/views/LoginView.jsp").forward(request, response);
+            }
             /* TODO output your page here. You may use following sample code. */
-            request.getRequestDispatcher("WEB-INF/views/admin/AdminView.jsp").forward(request, response);
         }
     }
 

@@ -14,6 +14,7 @@
         <title>Category View</title>
     </head>
     <body>
+        <%@include file="../jspf/adminheader.jspf" %>
         <table>
             <tr>
                 <th>Category's ID</th>

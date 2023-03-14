@@ -3,12 +3,12 @@
 <%@ page pageEncoding="UTF-8" %>
 <br/><br/>
 
-<h1 class="text-center">Made by Facebook</h1>
+<h1 class="text-center">Made by Facebook</h1> <br/>
 <%
-        if (session.getAttribute("loginedUser") != null) {
-            Account loginedUser = (Account) session.getAttribute("loginedUser");
-            if (loginedUser.getRole() == 1) {
-                out.print("<a href='AdminPageView'><h1 class='text-center'>Admin Page</h1></a>");
-            }
+    if (session.getAttribute("loginedUser") != null) {
+        Account loginedUser = (Account) session.getAttribute("loginedUser");
+        if (loginedUser.getRole() == 1) {
+            out.print("<a href='AdminPageView'><h1 class='text-center'>Admin Page</h1></a><br />");
         }
-    %>
+    }
+%>

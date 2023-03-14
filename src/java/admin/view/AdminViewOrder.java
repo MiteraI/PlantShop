@@ -39,24 +39,41 @@ public class AdminViewOrder extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-            Date date = dateFormat.parse("1999-01-01");
-            ArrayList<OrderDetail> pendingOrderList = new ArrayList();
-            ArrayList<OrderDetail> completedOrderList = new ArrayList();
-            ArrayList<OrderDetail> canceledOrderList = new ArrayList();
-            if (request.getParameter("dateFilter") != null) {
+            Date date = dateFormat.parse("1999-01-01"); //Default date to include all orders
+            ArrayList<OrderDetail> userFilteredOrderList = new ArrayList(); //User will be filterd first
+            ArrayList<OrderDetail> pendingOrderList = new ArrayList(); //Pending order filtered list
+            ArrayList<OrderDetail> completedOrderList = new ArrayList(); //Completed order filterd list
+            ArrayList<OrderDetail> canceledOrderList = new ArrayList(); //Cancelled order filtered list
+            if (request.getParameter("dateFilter") != null) { //Test if the filter parameter is sent
                 if (!request.getParameter("dateFilter").isEmpty() || !request.getParameter("dateFilter").isBlank()) {
                     String dateString = request.getParameter("dateFilter");
                     date = dateFormat.parse(dateString);
                 }
             }
-            System.out.println("Ready to dispatch");
-
+            String userID = ""; //Default user id in String to know if parameter is sent
+            int id = -1; //Default user id in Integer to not include anything in case of breach
+            if (request.getParameter("userFilter") != null) { //If and only if user id is sent will id be changed into valid id to filter
+                if (!request.getParameter("userFilter").isEmpty() || !request.getParameter("userFilter").isBlank()) {
+                    userID = request.getParameter("userFilter");
+                    id = Integer.parseInt(userID);
+                }
+            }
             HttpSession session = request.getSession();
             Account loginedUser = (Account) session.getAttribute("loginedUser");
+
             if (loginedUser != null) {
                 OrderDetailDAOImpl getOrderDetail = new OrderDetailDAOImpl();
                 ArrayList<OrderDetail> unfilteredOrderList = getOrderDetail.readAllAdmin();
-                for (OrderDetail order : unfilteredOrderList) {
+                if (id != -1) { //When id for filter is valid then put certain order into userFiltered list
+                    for (OrderDetail order : unfilteredOrderList) {
+                        if (order.getuOrder().getAccID() == id) {
+                            userFilteredOrderList.add(order);
+                        }
+                    }
+                } else { //When id is not valid for filter then copy data of unfiltered list and proceed as noraml
+                    userFilteredOrderList = unfilteredOrderList;
+                }
+                for (OrderDetail order : userFilteredOrderList) {
                     Date orderDate = dateFormat.parse(order.getuOrder().getOrderDate());
                     if (!orderDate.before(date)) { //After date
                         switch (order.getuOrder().getStatus()) {

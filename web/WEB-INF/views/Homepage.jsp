@@ -23,7 +23,7 @@
                 if (list.size() > 0) {
                     for (Plant plant : list) {
             %>
-            <div class="flex-col justify-center">
+            <div class="flex-col justify-center m-4">
                 <img
                     class="w-48 h-48"
                     src="./resources/img/<%=plant.getImgPath()%>"

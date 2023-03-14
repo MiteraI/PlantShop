@@ -42,7 +42,6 @@ public class Purchase extends HttpServlet {
             OrderDetailDAOImpl getOrderDetail = new OrderDetailDAOImpl();
             PlantDAOImpl getPlant = new PlantDAOImpl();
             if (session.getAttribute("loginedUser") != null) {
-
                 Account loginedUser = (Account) session.getAttribute("loginedUser");
                 if (loginedUser == null) { //Have to login before 
                     request.setAttribute("loginedUser", false);
@@ -55,10 +54,7 @@ public class Purchase extends HttpServlet {
                     }
                     for (Plant plant : cart.keySet()) {
                         if (getOrderDetail.create(Integer.toString(loginedUser.getAccID()), Integer.toString(plant.getId()), Integer.toString(cart.get(plant)))) {
-                            System.out.println("Successful");
-                        } else {
-                            System.out.println("Something is wrong!");
-                        }
+                        } 
                     }
                     session.removeAttribute("cart");
                     request.getRequestDispatcher("").forward(request, response);

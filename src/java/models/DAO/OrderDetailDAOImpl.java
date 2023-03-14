@@ -45,7 +45,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
                 + "WHERE\n"
                 + "    Orders.AccID = ? AND OrderDetails.DetailId = ?\n"
                 + "select * from dbo.Orders";
-         
+
         Connection conn = dbconnect.ConnectionUtils.getConnection();
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setInt(1, accID);
@@ -85,14 +85,14 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
                 + "INSERT INTO OrderDetails (OrderID, PID, quantity)\n"
                 + "VALUES ((SELECT MAX(OrderID) FROM Orders), ? , ?);"; //PID and quanity take from cart
         Connection conn = dbconnect.ConnectionUtils.getConnection();
-//        conn.setAutoCommit(false);
+        conn.setAutoCommit(false);
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1, accID);
         pstm.setString(2, PID);
         pstm.setString(3, quantity);
-        if (pstm.executeUpdate() > 1) {
-            //           conn.commit();
-            //           conn.setAutoCommit(true);
+        if (pstm.executeUpdate() > 0) {
+            conn.commit();
+            conn.setAutoCommit(true);
             conn.close();
             return true;
         }
@@ -147,10 +147,45 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         conn.close();
         return false;
     }
-
+    
+    public boolean complete(String orderId) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE Orders\n"
+                + "SET status = 2\n"
+                + "WHERE OrderID = ?";
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, Integer.parseInt(orderId));
+        if (pstm.executeUpdate() > 0) {
+            conn.close();
+            return true;
+        }
+        conn.close();
+        return false;
+    }
+    
     @Override
     public boolean delete() throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean delete(String orderID) throws SQLException, ClassNotFoundException {
+        String sql = "DELETE dbo.OrderDetails\n"
+                + "WHERE OrderID = ?\n"
+                + "DELETE FROM dbo.Orders\n"
+                + "WHERE OrderID = ?";
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        conn.setAutoCommit(false);
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, Integer.parseInt(orderID));
+        pstm.setInt(2, Integer.parseInt(orderID));
+        if (pstm.executeUpdate() > 0) {
+            conn.commit();
+            conn.setAutoCommit(true);
+            conn.close();
+            return true;
+        }
+        conn.close();
+        return false;
     }
 
     @Override
@@ -207,7 +242,8 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         }
         return new ArrayList<OrderDetail>();
     }
-     public ArrayList<OrderDetail> readAllAdmin() throws SQLException, ClassNotFoundException {
+
+    public ArrayList<OrderDetail> readAllAdmin() throws SQLException, ClassNotFoundException {
         String sql = "SELECT\n"
                 + "    OrderDetails.DetailId,\n"
                 + "    OrderDetails.OrderID,\n"
@@ -255,5 +291,3 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         return new ArrayList<OrderDetail>();
     }
 }
-
-
