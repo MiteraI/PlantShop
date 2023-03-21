@@ -75,10 +75,26 @@ public class AccountDAOImpl implements AccountDAO {
         pstm.setString(4, phone);
         pstm.setInt(5, 1);
         pstm.setInt(6, 0);
-        if (pstm.executeUpdate() > 0) {
-            conn.close();
-            return true;
+        if (!isAccountExist(email)) {
+            if (pstm.executeUpdate() > 0) {
+                conn.close();
+                return true;
+            }
         }
+
+        conn.close();
+        return false;
+    }
+
+    private boolean isAccountExist(String email) throws SQLException, ClassNotFoundException {
+        Connection conn = dbconnect.ConnectionUtils.getConnection();
+        String sql = "SELECT * FROM dbo.Accounts WHERE email=? ";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, email);
+        ResultSet rs = pstm.executeQuery();
+        if (rs.next()) {
+            return true;
+        };
         conn.close();
         return false;
     }
