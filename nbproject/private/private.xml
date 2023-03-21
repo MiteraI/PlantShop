@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/HomePage.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workservlets/Logout.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/web/WEB-INF/views/LoginView.jsp</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/DAO/AccountDAOImpl.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/utils/HashingUtils.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/viewservlets/Login.java</file>
-            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/models/entities/Account.java</file>
+            <file>file:/D:/Coding%20Folder/Project%20Java/PlantShop/src/java/workservlets/AddToCart.java</file>
         </group>
     </open-files>
 </project-private>

@@ -50,12 +50,12 @@ public class AdminViewOrder extends HttpServlet {
                     date = dateFormat.parse(dateString);
                 }
             }
-            String userID = ""; //Default user id in String to know if parameter is sent
-            int id = -1; //Default user id in Integer to not include anything in case of breach
-            if (request.getParameter("userFilter") != null) { //If and only if user id is sent will id be changed into valid id to filter
-                if (!request.getParameter("userFilter").isEmpty() || !request.getParameter("userFilter").isBlank()) {
-                    userID = request.getParameter("userFilter");
-                    id = Integer.parseInt(userID);
+            String userId = "";
+            int id = -1;
+            if (request.getParameter("userFilter")!= null) {
+                if (!request.getParameter("userFilter").isBlank() || !request.getParameter("userFilter").isEmpty()) {
+                    userId = request.getParameter("userFilter");
+                    id = Integer.parseInt(userId);
                 }
             }
             HttpSession session = request.getSession();
